@@ -1,22 +1,29 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+/*
+ * The most simple application I can build with Meteor
+ *
+ * Aims to display the same page, say four times, with different routes:
+ * - /
+ * - /one
+ * - /two/three
+ * - /four/five/six
+ * 
+ * Goal is to exhibit the adressing bug when loading jstree images
+ */
 
-import './main.html';
+import { FlowRouter } from 'meteor/ostrio:flow-router-extra';
+import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+import '/imports/client/components/panel/panel.js';
+import '/imports/client/layouts/app/app.js';
+
+FlowRouter.route( '/*/jstree/:file', {
+    action(){
+        console.log( FlowRouter.current());
+    }
 });
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
-});
-
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+FlowRouter.route( '*', {
+    action(){
+        BlazeLayout.render( 'app', { template: 'panel' });
+    }
 });
