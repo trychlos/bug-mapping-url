@@ -3,10 +3,7 @@
  */
 
 import { jstree } from 'jstree';
-
-//import 'jstree/dist/themes/default/style.min.css';
 import './jstree-style-abs-path.css';
-//import './jstree-style-no-path.css';
 
 import './panel.html';
 

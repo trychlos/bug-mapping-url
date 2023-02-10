@@ -8,8 +8,12 @@ WebApp.connectHandlers.use( function( req, res, next ){
     const indexOf = req.url.indexOf( '/jstree/' );
     if( indexOf > 0 ){
         const newurl = req.url.substring( indexOf );
-        console.log( 'substituting', req.url, 'with', newurl );
-        req.url = newurl;
+        console.log( 'WebApp redirecting', req.url, 'with', newurl );
+        res.writeHead( 301, {
+            Location: newurl
+        });
+        res.end();
+    } else {
+        next();
     }
-    next();
 });
